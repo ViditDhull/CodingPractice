@@ -1,6 +1,5 @@
 file = open("movie_names.txt", "r")
 movies = file.readlines()
-
 result = []
 result.append('shershaah\n')
 
