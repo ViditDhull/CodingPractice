@@ -22,22 +22,34 @@ class Stack:
 def is_balanced(str_ele):
     s = Stack()
 
-    for ch in str_ele:
-        s.push(ch)
-    
     result = True
-    
-    if s.container.count('[') != s.container.count(']'):
-        result = False
-    if s.container.count('{') != s.container.count('}'):
-        result = False
-    if s.container.count('(') != s.container.count(')'):
-        result = False
+    count1 = 0
+    count2 = 0
+    count3 = 0
+    for ch in str_ele:
+        if ch == '(':
+            count1 += 1
+        elif ch == '{':
+            count2 += 1
+        elif ch == '[':
+            count3 += 1                
+        elif ch == ')':
+            count1 -= 1
+            if count1 < 0:
+                result = False
+        elif ch == '}':
+            count2 -= 1
+            if count2 < 0:
+                result = False
+        elif ch == ']':
+            count3 -= 1
+            if count3 < 0:
+                result = False
     return result
-
 
 print(is_balanced("({a+b})"))
 print(is_balanced("))((a+b}{"))
 print(is_balanced("((a+b))"))
 print(is_balanced("))"))
 print(is_balanced("[a+b]*(x+2y)*{gg+kk}"))
+print(is_balanced("((a+g))"))
