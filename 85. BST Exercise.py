@@ -49,7 +49,57 @@ class BinarySearchTreeNode:
                 return self.right.search(val)
             else:
                 return False
+    
+    def find_min(self):
+        if self.left:
+            return self.left.find_min()
+        else:
+            return self.data
+    
+    def find_max(self):
+        if self.right:
+            return self.right.find_max()
+        else:
+            return self.data
+    
+    def post_order_traversal(self):
+        elements = []
 
+        if self.left:
+            elements += self.left.post_order_traversal()
+
+        if self.right:
+            elements += self.right.post_order_traversal()
+
+        elements.append(self.data)
+
+        return elements
+
+    def pre_order_traversal(self):
+        elements = []
+
+        elements.append(self.data)
+
+        if self.left:
+            elements += self.left.pre_order_traversal()
+
+        if self.right:
+            elements += self.right.pre_order_traversal()
+
+        return elements
+    
+    def cal_sum(self):
+        element_sum = 0
+
+        if self.left:
+            element_sum += self.left.cal_sum()
+
+        element_sum += self.data
+
+        if self.right:
+            element_sum += self.right.cal_sum()
+
+        return element_sum
 
 def build_tree(elements):
     root = BinarySearchTreeNode(elements[0])
@@ -64,13 +114,12 @@ if __name__ == '__main__':
     # BST for int
     numbers = [17, 4, 1, 20, 9, 23, 18, 34, 18, 4]
     numbers_tree = build_tree(numbers)
-    print(numbers_tree.in_order_traversal())
-    print(numbers_tree.search(2))
+    max_tree = numbers_tree.find_max()
+    min_tree = numbers_tree.find_min()
 
-    # BST for String
-    countries = ["India", "Germany", "USA", "China", "India", "UK", "USA"]
-    country_tree = build_tree(countries)
-
-    print(country_tree.in_order_traversal())
-    print("UK is in list? ", country_tree.search("UK"))
-    print("Sweden is in list? ", country_tree.search("Sweden"))
+    print("The max of the tree is: ", max_tree)
+    print("The min of the tree is: ", min_tree)
+    print("The sum of the tree is: ", numbers_tree.cal_sum())
+    print("In-Order Traversal", numbers_tree.in_order_traversal())
+    print("Post-Order Traversal", numbers_tree.post_order_traversal())
+    print("Pre-Order Traversal", numbers_tree.pre_order_traversal())
